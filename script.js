@@ -349,6 +349,18 @@ function setupSectionReveals() {
     });
   }
 
+  // Playlist animation (reveals shortly after main pagi card)
+  const pagiPlaylist = document.getElementById('pagi-playlist');
+  if (pagiPlaylist) {
+    gsap.to(pagiPlaylist, {
+      opacity: 1,
+      y: 0,
+      duration: 1.0,
+      ease: 'back.out(1.2)',
+      delay: 0.9,
+    });
+  }
+
   // Rest of sections reveal on scroll
   sectionInners.forEach((inner) => {
     const parentSection = inner.closest('section');
@@ -458,5 +470,35 @@ function fallbackReveal() {
   if (heartFinale) {
     heartFinale.style.opacity = '1';
     heartFinale.style.transform = 'none';
+  }
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+// 10. AUDIO PLAYER LOGIC
+// ═══════════════════════════════════════════════════════════════
+
+let isPlaying = false;
+function playFirstTrack() {
+  const audioObj = document.getElementById('bg-audio');
+  const trackEl = document.getElementById('track-1');
+  const iconEl = trackEl.querySelector('.track-play-icon');
+
+  if (!audioObj) return;
+
+  if (isPlaying) {
+    audioObj.pause();
+    isPlaying = false;
+    trackEl.classList.remove('playing');
+    iconEl.textContent = '▶';
+  } else {
+    audioObj.play().then(() => {
+      isPlaying = true;
+      trackEl.classList.add('playing');
+      iconEl.textContent = '⏸'; // pause icon
+    }).catch(err => {
+      console.log("Audio play failed:", err);
+      alert("Browser mencegah pemutaran audio secara otomatis. Silakan klik lagi!");
+    });
   }
 }

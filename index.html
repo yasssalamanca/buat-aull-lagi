@@ -92,6 +92,86 @@
         </p>
         <div class="deco-divider"></div>
         <p class="section-sub">mogaa jadi pagi yg ceraah buat kamuu</p>
+
+        <!-- ── SPOTIFY STYLE PLAYLIST ── -->
+        <div class="playlist-wrapper" id="pagi-playlist">
+          <div class="playlist-hint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M12 5v14M19 12l-7 7-7-7" />
+            </svg>
+            <span>ayo, putar aku si urutan lagu yg paling pertama ini!</span>
+          </div>
+
+          <div class="playlist-container">
+            <div class="playlist-header">
+              <div class="col-index">#</div>
+              <div class="col-title">Title</div>
+              <div class="col-album">Album</div>
+              <div class="col-date">Date added</div>
+              <div class="col-duration">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+              </div>
+            </div>
+
+            <div class="track playable" id="track-1" onclick="playFirstTrack()">
+              <div class="col-index">
+                <span class="track-number">1</span>
+                <span class="track-play-icon">▶</span>
+              </div>
+              <div class="col-title">
+                <img src="blue.jpg" alt="yung kai - blue" class="track-img" />
+                <div class="track-info">
+                  <span class="track-name">blue</span>
+                  <span class="track-artist">yung kai</span>
+                </div>
+              </div>
+              <div class="col-album">blue</div>
+              <div class="col-date">1 days ago</div>
+              <div class="col-duration">3:12</div>
+            </div>
+
+            <div class="track disabled">
+              <div class="col-index"><span class="track-number">2</span></div>
+              <div class="col-title">
+                <img src="https://placehold.co/40x40/333/FFF?text=NYA" alt="Negro Y Azul" class="track-img" />
+                <div class="track-info">
+                  <span class="track-name">Negro Y Azul: The Ballad of Heisenberg</span>
+                  <span class="track-artist">Los Cuates de Sinaloa</span>
+                </div>
+              </div>
+              <div class="col-album">Negro Y Azul</div>
+              <div class="col-date">3 days ago</div>
+              <div class="col-duration">3:24</div>
+            </div>
+
+            <div class="track disabled">
+              <div class="col-index"><span class="track-number">3</span></div>
+              <div class="col-title">
+                <img src="https://placehold.co/40x40/333/FFF?text=TMW" alt="The Man Who Can't Be Moved"
+                  class="track-img" />
+                <div class="track-info">
+                  <span class="track-name">The Man Who Can't Be Moved</span>
+                  <span class="track-artist">The Script</span>
+                </div>
+              </div>
+              <div class="col-album">The Script</div>
+              <div class="col-date">4 days ago</div>
+              <div class="col-duration">4:01</div>
+            </div>
+          </div>
+
+          <!-- Audio Player element hidden -->
+          <audio id="bg-audio" preload="auto">
+            <!-- Nanti src nya diganti ke URL mp3 lagu blue - yung kai atau bisa pakai asset lokal -->
+            <source src="blue.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+
         <div class="scroll-hint" id="scroll-hint">
           <span>scroll ke bawah</span>
           <div class="scroll-arrow"></div>
