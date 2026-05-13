@@ -1,0 +1,438 @@
+/* ═══════════════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════════════ */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 500;
+  overflow-x: hidden;
+  background: #A8D8F0; /* fallback pagi */
+  color: #2C3E50;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   CSS VARIABLES — COLOR PALETTES per waktu
+   (Diatur ulang lewat JS saat scroll)
+═══════════════════════════════════════════════════ */
+:root {
+  /* ── PAGI: Langit pagi biru pastel bening ── */
+  --c-pagi-sky-top:    #5BBFEA;   /* biru muda cerah */
+  --c-pagi-sky-bot:    #AAE0F5;   /* biru pucat */
+  --c-pagi-horizon:    #FDDCB0;   /* golden peach */
+  --c-pagi-ground:     #7EC850;   /* hijau segar */
+  --c-pagi-text:       #1A3C5E;   /* navy gelap */
+  --c-pagi-sub:        #2E6DA4;   /* biru menengah */
+  --c-pagi-badge-bg:   rgba(255,255,255,0.35);
+  --c-pagi-badge-text: #1A4A7A;
+
+  /* ── SIANG: Langit biru terik ── */
+  --c-siang-sky-top:   #1E7CC8;   /* biru laut dalam */
+  --c-siang-sky-bot:   #5BB8E8;   /* biru cerah */
+  --c-siang-horizon:   #FFF4C2;   /* kuning pucat */
+  --c-siang-ground:    #5AAA30;   /* hijau siang */
+  --c-siang-text:      #0D2B4A;   /* navy */
+  --c-siang-sub:       #194F80;
+
+  /* ── SORE: Langit oranye-ungu cantik ── */
+  --c-sore-sky-top:    #4A1560;   /* ungu tua */
+  --c-sore-sky-bot:    #D4540A;   /* oranye tua */
+  --c-sore-horizon:    #FF9D43;   /* oranye hangat */
+  --c-sore-ground:     #2C1840;   /* ungu gelap */
+  --c-sore-text:       #FFF0E0;   /* krem terang */
+  --c-sore-sub:        #FFCBA0;   /* peach terang */
+
+  /* ── MALAM: Biru gelap berbintang ── */
+  --c-malam-sky-top:   #04061A;   /* hitam biru */
+  --c-malam-sky-bot:   #0D1B4A;   /* biru navy */
+  --c-malam-horizon:   #0A1230;   /* biru gelap */
+  --c-malam-ground:    #05080F;   /* hampir hitam */
+  --c-malam-text:      #E8EEFF;   /* putih kebiruan */
+  --c-malam-sub:       #A0B8FF;   /* lavender terang */
+
+  /* ── Shared token ── */
+  --transition-speed: 0.4s;
+  --section-max-w: 680px;
+  --radius-card: 24px;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   SKY CONTAINER
+═══════════════════════════════════════════════════ */
+#sky-container {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+#sky-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    var(--c-pagi-sky-top) 0%,
+    var(--c-pagi-sky-bot) 55%,
+    var(--c-pagi-horizon) 100%
+  );
+  transition: background 0.6s ease;
+  will-change: background;
+}
+
+#horizon-glow {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120%;
+  height: 300px;
+  background: radial-gradient(
+    ellipse at 50% 100%,
+    rgba(253, 220, 176, 0.55) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   CELESTIAL ASSETS
+═══════════════════════════════════════════════════ */
+#sun {
+  position: absolute;
+  width: clamp(90px, 14vw, 160px);
+  left: 50%;
+  transform: translateX(-50%);
+  top: 60%;            /* starts below center, GSAP will move it */
+  will-change: transform, opacity;
+  filter: drop-shadow(0 0 28px rgba(255, 210, 50, 0.7));
+  transition: filter 0.3s ease;
+}
+
+#moon {
+  position: absolute;
+  width: clamp(70px, 11vw, 130px);
+  right: 12%;
+  top: 110%;            /* starts hidden below */
+  will-change: transform, opacity;
+  opacity: 0;
+  filter: drop-shadow(0 0 22px rgba(160, 190, 255, 0.6));
+}
+
+#stars {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 55%;
+  object-fit: cover;
+  opacity: 0;
+  will-change: opacity;
+}
+
+.cloud {
+  position: absolute;
+  width: clamp(300px, 55vw, 680px);
+  will-change: transform, opacity;
+}
+
+#clouds-1 {
+  top: 8%;
+  left: -8%;
+  opacity: 0.75;
+}
+
+#clouds-2 {
+  top: 22%;
+  right: -10%;
+  opacity: 0.6;
+  transform: scaleX(-1);
+  width: clamp(240px, 45vw, 560px);
+}
+
+
+/* ═══════════════════════════════════════════════════
+   GROUND / SILHOUETTE
+═══════════════════════════════════════════════════ */
+#ground-silhouette {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  color: #5AAA30; /* default pagi */
+  will-change: color;
+}
+
+#ground-silhouette svg {
+  width: 100%;
+  height: 100%;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   FLOATING PARTICLES
+═══════════════════════════════════════════════════ */
+#particles-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: floatUp linear infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes floatUp {
+  0%   { transform: translateY(0) scale(1);   opacity: 0.8; }
+  50%  { opacity: 0.5; }
+  100% { transform: translateY(-110vh) scale(0.4); opacity: 0; }
+}
+
+
+/* ═══════════════════════════════════════════════════
+   MAIN CONTENT
+═══════════════════════════════════════════════════ */
+#main-content {
+  position: relative;
+  z-index: 1;
+}
+
+.time-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+}
+
+.section-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: var(--section-max-w);
+  width: 100%;
+  gap: 18px;
+
+  /* Glassmorphism card */
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-card);
+  padding: clamp(32px, 6vw, 56px) clamp(24px, 5vw, 48px);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.14),
+    0 1px 0 rgba(255,255,255,0.4) inset;
+
+  opacity: 0;
+  transform: translateY(40px);
+  transition: background 0.6s ease, border-color 0.6s ease;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   TIME BADGE
+═══════════════════════════════════════════════════ */
+.time-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: inherit;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+}
+
+.time-badge__icon {
+  font-size: 1rem;
+}
+
+.time-badge__label {
+  color: inherit;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   TYPOGRAPHY
+═══════════════════════════════════════════════════ */
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.9rem, 6vw, 3rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: inherit;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.18);
+}
+
+.section-message {
+  font-size: clamp(1rem, 2.8vw, 1.2rem);
+  line-height: 1.85;
+  color: inherit;
+  opacity: 0.9;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.15);
+}
+
+.section-message em {
+  font-style: italic;
+  opacity: 0.85;
+}
+
+.section-sub {
+  font-size: clamp(0.95rem, 2.4vw, 1.1rem);
+  font-weight: 600;
+  color: inherit;
+  opacity: 0.8;
+  letter-spacing: 0.01em;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.12);
+}
+
+.deco-divider {
+  width: 60px;
+  height: 3px;
+  border-radius: 2px;
+  background: currentColor;
+  opacity: 0.3;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   SCROLL HINT
+═══════════════════════════════════════════════════ */
+.scroll-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  color: inherit;
+  animation: hintBounce 2.2s ease-in-out infinite;
+}
+
+.scroll-arrow {
+  width: 20px;
+  height: 20px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  margin-top: -4px;
+}
+
+@keyframes hintBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(7px); }
+}
+
+
+/* ═══════════════════════════════════════════════════
+   HEART FINALE
+═══════════════════════════════════════════════════ */
+#heart-finale {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  opacity: 0;
+  transform: scale(0.6);
+}
+
+.heart-pulse {
+  font-size: clamp(2.4rem, 7vw, 3.5rem);
+  animation: heartbeat 1.4s ease-in-out infinite;
+  filter: drop-shadow(0 0 12px rgba(200, 100, 255, 0.6));
+}
+
+.heart-caption {
+  font-size: 0.9rem;
+  font-style: italic;
+  letter-spacing: 0.12em;
+  opacity: 0.75;
+  color: inherit;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14%       { transform: scale(1.18); }
+  28%       { transform: scale(1); }
+  42%       { transform: scale(1.12); }
+  70%       { transform: scale(1); }
+}
+
+
+/* ═══════════════════════════════════════════════════
+   PER-SECTION TEXT COLOR (overridden by scroll)
+   Default = pagi colors
+═══════════════════════════════════════════════════ */
+#pagi  .section-inner { color: var(--c-pagi-text); }
+#siang .section-inner { color: var(--c-siang-text); }
+#sore  .section-inner { color: var(--c-sore-text); }
+#malam .section-inner { color: var(--c-malam-text); }
+
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .section-inner {
+    padding: 28px 20px;
+    gap: 14px;
+  }
+
+  .time-badge {
+    padding: 6px 16px;
+    font-size: 0.72rem;
+  }
+
+  .scroll-hint {
+    font-size: 0.68rem;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════
+   PREVENT HORIZONTAL OVERFLOW
+═══════════════════════════════════════════════════ */
+body, #sky-container, #main-content {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   SELECTION
+═══════════════════════════════════════════════════ */
+::selection {
+  background: rgba(160, 184, 255, 0.4);
+  color: inherit;
+}

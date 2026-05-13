@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Sebuah pesan hangat untukmu — setiap saat hari ini adalah milikmu untuk bersinar. Scroll untuk merasakannya." />
+  <title>buat aull (lagi)</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,600&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       SKY CONTAINER (fixed background)
+  ═══════════════════════════════════════════ -->
+  <div id="sky-container" aria-hidden="true">
+
+    <!-- Sky gradient layer (animated via GSAP) -->
+    <div id="sky-gradient"></div>
+
+    <!-- Horizon glow -->
+    <div id="horizon-glow"></div>
+
+    <!-- Ground / silhouette -->
+    <div id="ground-silhouette">
+      <svg viewBox="0 0 1440 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M0,140 C200,100 400,160 600,130 C800,100 1000,150 1200,120 C1300,108 1380,125 1440,115 L1440,200 L0,200 Z"
+          fill="currentColor" />
+        <!-- Trees silhouette -->
+        <g fill="currentColor" opacity="0.7">
+          <rect x="50" y="100" width="6" height="40" />
+          <polygon points="53,60 35,110 71,110" />
+          <polygon points="53,75 38,105 68,105" />
+          <rect x="120" y="108" width="5" height="32" />
+          <polygon points="122.5,72 107,115 138,115" />
+          <rect x="1350" y="95" width="7" height="45" />
+          <polygon points="1353.5,52 1334,100 1373,100" />
+          <polygon points="1353.5,68 1337,98 1370,98" />
+          <rect x="1400" y="105" width="5" height="35" />
+          <polygon points="1402.5,68 1387,110 1418,110" />
+        </g>
+      </svg>
+    </div>
+
+    <!-- Stars (visible at night) -->
+    <img id="stars" src="assets/stars.svg" alt="bintang-bintang" />
+
+    <!-- Moon -->
+    <img id="moon" src="assets/moon.svg" alt="bulan" />
+
+    <!-- Clouds -->
+    <img id="clouds-1" class="cloud" src="assets/clouds.svg" alt="awan" />
+    <img id="clouds-2" class="cloud cloud--2" src="assets/clouds.svg" alt="awan" />
+
+    <!-- Sun -->
+    <img id="sun" src="assets/sun.svg" alt="matahari" />
+
+    <!-- Floating particles -->
+    <div id="particles-container" aria-hidden="true"></div>
+
+  </div><!-- /#sky-container -->
+
+
+  <!-- ═══════════════════════════════════════════
+       SCROLLABLE MAIN CONTENT
+  ═══════════════════════════════════════════ -->
+  <main id="main-content">
+
+    <!-- ── SECTION 1: PAGI ── -->
+    <section id="pagi" class="time-section" aria-label="Pagi hari">
+      <div class="section-inner">
+        <div class="time-badge" id="badge-pagi">
+          <span class="time-badge__icon">☀️</span>
+          <span class="time-badge__label">Pagi</span>
+        </div>
+        <h1 class="section-title">goodmoorninggg</h1>
+        <p class="section-message">
+          pagii inii pastii sibuk yaaa?<br />
+          yah, ngapainn jg akuu sotauu<br />
+          <em>mauu sibuk atau nggaa, ttp jalanii yak</em>
+        </p>
+        <div class="deco-divider"></div>
+        <p class="section-sub">mogaa jadi pagi yg ceraah buat kamuu</p>
+        <div class="scroll-hint" id="scroll-hint">
+          <span>scroll ke bawah</span>
+          <div class="scroll-arrow"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SECTION 2: SIANG ── -->
+    <section id="siang" class="time-section" aria-label="Siang hari">
+      <div class="section-inner">
+        <div class="time-badge" id="badge-siang">
+          <span class="time-badge__icon">☁️</span>
+          <span class="time-badge__label">Siang</span>
+        </div>
+        <h2 class="section-title">waah, udah siaang!</h2>
+        <p class="section-message">
+          harussnya aull sekarang mauu pemantapan atau lagii pemantapan, yaa? —<br />
+          semangaat yaak, pastii kamuu udaa bisaa!<br />
+          <em>selamat bertarung melawan tampilan MYOB yg jadul ituu</em>
+        </p>
+        <div class="deco-divider"></div>
+        <p class="section-sub">kaloo mudeng mah break ajaa sejenak yaak</p>
+      </div>
+    </section>
+
+    <!-- ── SECTION 3: SORE ── -->
+    <section id="sore" class="time-section" aria-label="Sore hari">
+      <div class="section-inner">
+        <div class="time-badge" id="badge-sore">
+          <span class="time-badge__icon">🌅</span>
+          <span class="time-badge__label">Sore</span>
+        </div>
+        <h2 class="section-title">haaii, soreee~</h2>
+        <p class="section-message">
+          masii pemantapan atauu udahh nii?<br />
+          yahh apapun itu, mogaa uda kelar pemantapannya (atau ngasi tau bestinya wkwkw)<br />
+          <em>u did a great job, good job!!</em>
+        </p>
+        <div class="deco-divider"></div>
+        <p class="section-sub">so proud of uu!</p>
+      </div>
+    </section>
+
+    <!-- ── SECTION 4: MALAM ── -->
+    <section id="malam" class="time-section" aria-label="Malam hari">
+      <div class="section-inner">
+        <div class="time-badge" id="badge-malam">
+          <span class="time-badge__icon">🌙</span>
+          <span class="time-badge__label">Malam</span>
+        </div>
+        <h2 class="section-title">then, its night already..</h2>
+        <p class="section-message">
+          makasii yaa udaa berjuang buat hari inii, kamu hebaatt<br />
+          sekarang waktunya istirahat yaaa, i'll be here if you need anything, prettyyy~<br />
+          <em>goodnight, sleep well, kamu hebat.</em>
+        </p>
+        <div class="deco-divider"></div>
+        <p class="section-sub">have a nice dream~</p>
+
+        <!-- Heart animation at end -->
+        <div id="heart-finale" aria-label="Dengan cinta">
+          <div class="heart-pulse">
+            <3 </div>
+              <p class="heart-caption">— dari teman aga sonoan dikit, buat aull —</p>
+          </div>
+        </div>
+    </section>
+
+  </main><!-- /#main-content -->
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+  <script src="script.js" defer></script>
+</body>
+
+</html>

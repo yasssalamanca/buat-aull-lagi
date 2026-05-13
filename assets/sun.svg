@@ -1,0 +1,44 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="sunCore" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="1"/>
+      <stop offset="30%" stop-color="#FFF7A1" stop-opacity="1"/>
+      <stop offset="70%" stop-color="#FFDA00" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#FF9500" stop-opacity="0.8"/>
+    </radialGradient>
+    <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFE066" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#FF9500" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+  <!-- Outer glow -->
+  <circle cx="100" cy="100" r="90" fill="url(#sunGlow)" filter="url(#blur-glow)"/>
+  <!-- Rays -->
+  <g stroke="#FFD700" stroke-width="3" stroke-linecap="round" opacity="0.7">
+    <line x1="100" y1="10" x2="100" y2="25"/>
+    <line x1="100" y1="175" x2="100" y2="190"/>
+    <line x1="10" y1="100" x2="25" y2="100"/>
+    <line x1="175" y1="100" x2="190" y2="100"/>
+    <line x1="29" y1="29" x2="39" y2="39"/>
+    <line x1="161" y1="161" x2="171" y2="171"/>
+    <line x1="171" y1="29" x2="161" y2="39"/>
+    <line x1="29" y1="171" x2="39" y2="161"/>
+  </g>
+  <!-- Medium rays -->
+  <g stroke="#FFEC70" stroke-width="2" stroke-linecap="round" opacity="0.5">
+    <line x1="100" y1="20" x2="100" y2="32"/>
+    <line x1="100" y1="168" x2="100" y2="180"/>
+    <line x1="20" y1="100" x2="32" y2="100"/>
+    <line x1="168" y1="100" x2="180" y2="100"/>
+    <line x1="43" y1="43" x2="51" y2="51"/>
+    <line x1="149" y1="149" x2="157" y2="157"/>
+    <line x1="157" y1="43" x2="149" y2="51"/>
+    <line x1="43" y1="157" x2="51" y2="149"/>
+  </g>
+  <!-- Core -->
+  <circle cx="100" cy="100" r="45" fill="url(#sunCore)"/>
+</svg>
